@@ -22,7 +22,7 @@ class ManageCoursePage extends React.Component{
         const field = event.target.name;
         let course = this.state.course;
         course[field] = event.target.value;
-        return this.setState({course: course})
+        return this.setState({ course: course });
     }
 
     render()
