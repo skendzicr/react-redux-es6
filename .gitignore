@@ -32,5 +32,8 @@ dist
 #Webstorm metadata
 .idea
 
+#VisualStudio Code metadata
+.vscode
+
 # Mac files
 .DS_Store
