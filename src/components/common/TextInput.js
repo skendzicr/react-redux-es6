@@ -24,9 +24,9 @@ const TextInput = ({name, label, onChange, placeholder, value, error}) => {
 };
 
 TextInput.propTypes = {
-    name: React.PropTypes.object.isRequired,
-    label: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.object.isRequired,
+    name: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string.isRequired,
+    onChange: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string,
     value: React.PropTypes.string,
     error: React.PropTypes.string

@@ -41,7 +41,7 @@ const CourseForm = ({course,allAuthors, onSave,onChange,loading,errors}) => {
                 disabled = {loading}
                 value={loading ? "Saving...":"Save"}
                 onClick={onSave}
-                className = 'btn btn-primary'
+                className = "btn btn-primary"
             />
         </form>
     );
@@ -49,8 +49,8 @@ const CourseForm = ({course,allAuthors, onSave,onChange,loading,errors}) => {
 
 CourseForm.propTypes = {
     course: React.PropTypes.object.isRequired,
-    onSave: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.object.isRequired,
+    onSave: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func.isRequired,
     allAuthors: React.PropTypes.array,
     loading: React.PropTypes.bool,
     errors: React.PropTypes.object    
