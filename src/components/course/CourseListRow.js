@@ -6,7 +6,7 @@ const CourseListRow = ({course}) => {
         <tr>
             <td><a href={course.watchHref} target="_blank">Watch</a></td>
             <td><Link to={'/course/'+ course.id}>{course.title}</Link></td>
-            <td>{course.authorId}</td>
+            <td><Link to={'/author/'+ course.authorId}>{course.authorId}</Link></td>
             <td>{course.category}</td>
             <td>{course.length}</td>
         </tr>   
