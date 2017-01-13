@@ -17,6 +17,10 @@ const authorReducer = (state = initialState.authors, action) => {
         ...state.filter(author => author.id !== action.author.id),
         Object.assign({}, action.author)
       ];
+    case types.DELETE_AUTHORS_SUCCESS:
+      return [
+        ...state.filter(author => author.id !== action.author)
+      ];
 
     default:
       return state;

@@ -11,16 +11,18 @@ export class ManageAuthorPage extends React.Component{
         
         this.state = {
             author: Object.assign({}, props.author),
+            courses: [],
             errors: {},
-            saving: false
+            submitting: false
         };
 
         this.updateAuthor = this.updateAuthor.bind(this);
         this.saveAuthor = this.saveAuthor.bind(this);
+        this.deleteAuthor = this.deleteAuthor.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.author.id !== nextProps.author.id) {
+        if (nextProps.author && this.props.author.id !== nextProps.author.id) {
             this.setState({ author: Object.assign({}, nextProps.author) });
         }
     }
@@ -52,18 +54,46 @@ export class ManageAuthorPage extends React.Component{
             return; 
         }
 
-        this.setState({ saving: true });
+        this.setState({ submitting: true });
         this.props.actions.saveAuthor(this.state.author)
-            .then(() => this.redirect()
+            .then(() => this.redirect('saved')
             ).catch((error) => {
-                this.setState({ saving: false });
+                this.setState({ submitting: false });
                 toastr.error(error);
             });        
     }
 
-    redirect() {
-        this.setState({ saving: false });
-        toastr.success("Author saved");
+    authorHasCourse(authorId) {
+        let authorHasCourse = false;
+        let courses = this.props.courses;
+        let errors = {};
+
+        authorHasCourse = courses.filter(course => course.authorId === authorId).length !== 0;
+        authorHasCourse ? errors.delete = "You cannot delete this author. He has assigned courses to him." : "";
+        this.setState({ errors });
+        return authorHasCourse;
+    }
+
+    deleteAuthor(event) {
+        event.preventDefault();
+        const {author} = this.state;
+        if (this.authorHasCourse(author.id)) {
+            toastr.error(`You cannot delete this author.
+            He has assigned courses to him.
+            `);            
+        } else {
+            this.props.actions.deleteAuthor(this.state.author)
+                .then(() => this.redirect('deleted')
+                ).catch((error) => {
+                    toastr.error(error);
+                });
+        }
+
+    }
+
+    redirect(action) {
+        this.setState({ submitting: false });
+        toastr.success(`Author ${action}`);
         this.context.router.push('/courses');
     }
     
@@ -74,8 +104,9 @@ export class ManageAuthorPage extends React.Component{
                 author={this.state.author}
                 onChange={this.updateAuthor}
                 onSave = {this.saveAuthor}
+                onDelete = {this.deleteAuthor}
                 errors={this.state.errors}
-                saving={this.state.saving}
+                submitting={this.state.submitting}
             />
         );
     }
@@ -84,7 +115,9 @@ export class ManageAuthorPage extends React.Component{
 ManageAuthorPage.propTypes=
 {
     author: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    courses: PropTypes.array.isRequired
+
     };
 
 ManageAuthorPage.contextTypes = {
@@ -105,9 +138,11 @@ const mapStateToProps = (state, ownProps) => {
     if (authorId && state.authors.length > 0) {
         author = getAuthorById(state.authors, authorId);
     }
+    let courses = state.courses;
 
     return {
-        author
+        author,
+        courses
     };
 };
 

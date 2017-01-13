@@ -4,17 +4,18 @@ import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import CoursesPage from './components/course/CoursesPage';
-import ManageCoursePage from './components/course/ManageCoursePage';
-import ManageAuthorPage from './components/course/ManageAuthorPage';
+import ManageCourse from './components/course/ManageCoursePage';
+import ManageAuthor from './components/course/ManageAuthorPage';
 
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="courses" component={CoursesPage}/>
-    <Route path="course" component={ManageCoursePage}/>
-    <Route path="course/:id" component={ManageCoursePage}/>
-    <Route path="author/:id" component={ManageAuthorPage}/>
+    <Route path="course" component={ManageCourse}/>
+    <Route path="course/:id" component={ManageCourse}/>
+    <Route path="author/:id" component={ManageAuthor}/>
+    <Route path="author" component={ManageAuthor}/>
     <Route path="about" component={AboutPage}/>
   </Route>
 );

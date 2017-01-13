@@ -22,3 +22,7 @@ nav{
   font-size: 12px;
   border: 1px white solid;
 }
+
+.btn {
+  margin-right: 5px;
+}

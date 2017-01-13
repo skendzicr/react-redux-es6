@@ -11,6 +11,9 @@ export const updateAuthorsSuccess = author => {
 export const createAuthorsSuccess = author => {
   return { type: types.CREATE_AUTHORS_SUCCESS, author }; 
 };
+export const deleteAuthorsSuccess = author => {
+  return { type: types.DELETE_AUTHORS_SUCCESS, author }; 
+};
 
 
 export const loadAuthors = () => {
@@ -18,6 +21,16 @@ export const loadAuthors = () => {
     dispatch(beginAjaxCall());
     return AuthorApi.getAllAuthors().then(authors => {
       dispatch(loadAuthorsSuccess(authors));
+    }).catch(error => {
+      throw (error);
+    });
+  };
+};
+export const deleteAuthor = author => {
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return AuthorApi.deleteAuthor(author.id).then(deleted => {
+      dispatch(deleteAuthorsSuccess(deleted));
     }).catch(error => {
       throw (error);
     });
