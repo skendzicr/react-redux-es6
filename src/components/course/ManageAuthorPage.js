@@ -69,7 +69,7 @@ export class ManageAuthorPage extends React.Component{
         let errors = {};
 
         authorHasCourse = courses.filter(course => course.authorId === authorId).length !== 0;
-        authorHasCourse ? errors.delete = "You cannot delete this author. He has assigned courses to him." : "";
+        authorHasCourse ? errors.delete = "You cannot delete this author. He has assigned courses to him." : errors.delete = '';
         this.setState({ errors });
         return authorHasCourse;
     }

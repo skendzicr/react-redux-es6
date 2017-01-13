@@ -20,7 +20,7 @@ describe('ManageAuthorPage', () => {
         const deleteButton = wrapper.find('input').last();
         expect(deleteButton.prop('type')).toBe('submit');
         deleteButton.simulate('click');
-        expect(wrapper.state().errors.delete).toBe('You cannot delete this author');
+        expect(wrapper.state().errors.delete).toBe('You cannot delete this author. He has assigned courses to him.');
     });
     it('doesn\'t sets error message when trying to delete author without courses', () => {
 
@@ -28,7 +28,7 @@ describe('ManageAuthorPage', () => {
             author: {
                     id: 'cory-house'
                 },
-            actions: { deleteAuthor: () => Promise.resolve()},
+            actions: { deleteAuthor: (event) => Promise.resolve()},
             courses: [{
                     authorId: "radovan-skendzic"
                 }]
